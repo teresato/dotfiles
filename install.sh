@@ -11,14 +11,18 @@ fi
 brew update
 
 # Install all our dependencies with bundle (See Brewfile)
-# brew tap homebrew/bundle
+brew tap homebrew/bundle
 brew bundle
 
 # Make ZSH the default shell environment
-chsh -s $(which zsh)
+# chsh -s $(which zsh)
+chsh -s /usr/local/bin/zsh
 
-# Symlink the Mackup config file to the home directory
-# ln -s ./.mackup.cfg $HOME/.mackup.cfg
+# Install Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+#Symlink dotfiles to the custom directory
+source symlink.sh
 
 # Set macOS preferences
 # We will run this last because this will reload the shell
