@@ -24,6 +24,15 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 #Symlink dotfiles to the custom directory
 source symlink.sh
 
+# Create work directory
+mkdir $HOME/workspace
+
+# Create Golang work directory
+mkdir $HOME/golang
+mkdir $HOME/golang/src 
+mkdir $HOME/golang/bin
+mkdir $HOME/golang/pkg
+
 # Set macOS preferences
 # We will run this last because this will reload the shell
 source .macos
