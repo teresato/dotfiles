@@ -6,10 +6,6 @@ tap 'caskroom/fonts'
 tap 'caskroom/versions'
 tap 'homebrew/bundle'
 
-# Install ZSH
-brew 'zsh'
-brew 'zsh-completions'
-
 # Install GNU core utilities (those that come with macOS are outdated)
 brew 'coreutils'
 
@@ -17,59 +13,62 @@ brew 'coreutils'
 brew 'findutils'
 
 # Install more recent versions of some macOS tools
+brew 'curl'
 brew 'grep'
 
 # Install Binaries
-brew 'awscli'
-brew 'exa'
-brew 'git'
+brew 'awscli' # AWS CLI
+brew 'bat' # cat with wings
+brew 'cheat' # cheat sheets
+brew 'curlie' # curl
+brew 'dog' # DNS
+brew 'duf' # disk usage
+brew 'fd'  # find
+brew 'gh' # GitHub CLI
+brew 'git' # Git
+brew 'gnupg' # GPG
 brew 'go'
+brew 'helm'
 brew 'jq'
-brew 'node'
-brew 'openssl'
-brew 'pyenv'
-brew 'pyenv-virtualenv'
+brew 'kubectl'
+brew 'lsd' # ls with icons
+brew 'openssh'
+brew 'pinentry' # GPG
+brew 'pinentry-mac'
+brew 'pipenv' # Python virtualenv
+brew 'pyenv' # Python version manager
+brew 'pyenv-virtualenv' # Python virtualenv
+brew 'tfenv' #
 brew 'tmux'
-brew 'tree'
-brew 'vim'
+brew 'tree' #
+brew 'vim' #
 brew 'wget'
-brew 'zsh'
-brew 'zsh-completions'
+brew 'zoxide' # smarter cd
 
 # Apps
-cask 'aerial'
-cask 'alfred'
-cask 'appcleaner'
-cask 'authy'
-cask 'caffeine'
+cask '1password'
+cask 'arc'
 cask 'clipy'
 cask 'docker'
-cask 'dropbox'
 cask 'firefox'
-cask 'flux'
-cask 'google-backup-and-sync'
 cask 'google-chrome'
-cask 'google-cloud-sdk'
-cask 'gpg-suite'
-cask 'keybase'
+# cask 'google-cloud-sdk'
 cask 'iterm2'
-cask 'skype'
+cask 'obsidian'
+cask 'pycharm-ce'
+cask 'rectangle'
+cask 'signal'
 cask 'slack'
-cask 'spectacle'
 cask 'spotify'
-cask 'vagrant'
-cask 'virtualbox'
-cask 'virtualbox-extension-pack'
 cask 'visual-studio-code'
-cask 'vlc'
+cask 'whatsapp'
 cask 'zoomus'
 
-
-# Fonts
-cask 'font-source-code-pro-for-powerline'
-cask 'font-source-code-pro'
-cask 'font-source-sans-pro'
-cask 'font-source-serif-pro'
+# # Fonts
+# cask 'font-source-code-pro-for-powerline'
+# cask 'font-source-code-pro'
+# cask 'font-source-sans-pro'
+# cask 'font-source-serif-pro'
 
 
 
