@@ -13,6 +13,10 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = "aarch64-darwin"; # use x86_64-darwin for Intel CPU
 
+  # fish as the login shell (zsh stays available as a fallback).
+  programs.fish.enable = true;
+  environment.shells = [ pkgs.fish ];
+
   system.primaryUser = user;
   users.users.${user} = {
     home = "/Users/${user}";
@@ -43,48 +47,58 @@
     # Uninstall (and remove data for) anything not listed below on each rebuild.
     onActivation.cleanup = "zap";
     taps = [
-      "anomalyco/tap"  # opencode-v2
+      "getsentry/xcodebuildmcp"  # xcodebuildmcp is tap-only
     ];
     # Only tools that aren't in nixpkgs (or are easier to run as a brew service).
     brews = [
       "herdr"
-      "anomalyco/tap/opencode-v2"  # v2 isn't the opencode in nixpkgs yet
+      "opencode"                   # brew core has v2; nixpkgs 26.05-darwin is still on v1
       "mole"                       # Mac cleaner; nixpkgs `mole` is a different tool
       "mysql"                      # run locally via `brew services`
+      "cliclick"                   # not packaged in nixpkgs
+      "getsentry/xcodebuildmcp/xcodebuildmcp"
     ];
-    # GUI apps: casks either way.
+    # GUI apps: casks either way. One flat alphabetical list -- every cask
+    # installed on this machine is declared here, so cleanup is safe to enable.
     casks = [
-      # terminals & editors
-      "ghostty"
-      "zed"
-      "visual-studio-code"
-      "intellij-idea"
-      # ai
-      "claude-code"
-      "chatgpt"
-      "codex"
-      "conductor"
-      # browsers & security
+      "1password"
+      "balenaetcher"
+      "brainfm"
       "brave-browser"
       "burp-suite"
-      "secretive"
-      # productivity
-      "obsidian"
-      "raindropio"
-      "superlist"
-      "maccy"
-      "tolaria"
-      # utilities
-      "appcleaner"
-      "wallspace"
-      # media & chat
-      "spotify"
-      "signal"
-      # fonts
+      "chatgpt"
+      "claude-code"
+      "cmux"
+      "codex"
+      "codex-app"
+      "conductor"
+      "discord"
+      "fixkey"
       "font-source-code-pro"
       "font-source-code-pro-for-powerline"
-      "font-source-sans-3"
-      "font-source-serif-4"
+      "ghostty"
+      "loom"
+      "maccy"
+      "obsidian"
+      "orion"
+      "puremac"
+      "raindropio"
+      "rancher"
+      "raycast"
+      "rectangle"
+      "secretive"
+      "signal"
+      "slack"
+      "spotify"
+      "superlist"
+      "tolaria"
+      "visual-studio-code"
+      "wallspace"
+      "whatsapp"
+      "yubico-authenticator"
+      "yubico-yubikey-manager"
+      "zed"
+      "zoom"
     ];
   };
 }

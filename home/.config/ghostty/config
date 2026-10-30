@@ -1,0 +1,5 @@
+# Always launch fish, regardless of login-shell detection.
+command = /run/current-system/sw/bin/fish
+
+# Nerd Font so Starship's powerline glyphs render.
+font-family = "Hack Nerd Font"

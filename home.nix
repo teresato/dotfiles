@@ -25,18 +25,40 @@ in
     pi-coding-agent  # `pi`
     gnupg
     pinentry_mac
+    git
+    tmux
+    zoxide    # `z` -- jump to frecent dirs
+    tree
+    duf       # friendlier df
+    cheat     # cheatsheets for commands
+    curl      # newer than the macOS build
+    curlie    # curl with httpie-style output
+    wget
+    findutils # GNU find/xargs, not the BSD ones
+    vim       # fallback for when the neovim config is broken
+    chezmoi
     # languages & build (versions still pinned per-project by mise)
     go
     uv        # python package/venv manager
     pnpm
+    pipenv
     # cloud & infra
     awscli2
     kubectl
+    kubernetes-helm  # `helm`
+    minikube
+    docker-client    # CLI only; colima provides the daemon
     colima
     terraform-docs
     steampipe
     gws       # googleworkspace-cli
     ollama
+    # media & ocr
+    ffmpeg
+    tesseract
+    # security
+    openssh   # newer than the macOS build
+    yubikey-manager  # `ykman`
     # the font everything renders in
     nerd-fonts.hack
   ];
@@ -95,27 +117,66 @@ in
     };
   };
 
-  programs.starship = {
+  programs.fish = {
     enable = true;
-    settings = {
-      add_newline = false;
-      format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
-      character = {
-        success_symbol = "[❯](purple)";
-        error_symbol = "[❯](red)";
-      };
-      cmd_duration.format = "[$duration]($style) ";
+    # foreign-env lets fish source the bash-style ~/.secrets.env (incl. $(gh auth token)).
+    plugins = [
+      { name = "foreign-env"; src = pkgs.fishPlugins.foreign-env.src; }
+    ];
+    # Abbreviations expand as you type, so history stores the real command.
+    shellAbbrs = {
+      add = "git add .";
+      push = "git push";
+      pull = "git pull";
+      m = "git switch main";
+      gst = "git status";
+      tf = "terraform";
+      k = "kubectl";
     };
+    # Kept as aliases: not command-word shortcuts, or they wrap a function.
+    shellAliases = {
+      ".." = "cd ..";
+      cc = "claude --dangerously-skip-permissions";
+      co = "codex --full-auto";
+      gdub = "prune";
+    };
+    shellInit = ''
+      set -gx PNPM_HOME "$HOME/Library/pnpm"
+      fish_add_path $HOME/.local/bin
+      fish_add_path $PNPM_HOME/bin
+
+      # Secrets live outside the repo; load the bash-style file via foreign-env.
+      test -f ~/.secrets.env; and fenv source ~/.secrets.env
+    '';
+    interactiveShellInit = ''
+      set -gx GPG_TTY (tty)
+      gpgconf --launch gpg-agent
+
+      bind \cf accept-autosuggestion
+
+      # Delete local branches whose remote is gone.
+      function prune
+        git fetch --all --prune
+        for branch in (git branch -vv | grep ': gone]' | awk '{print $1}')
+          git branch -D $branch
+        end
+      end
+    '';
   };
+
+  # Shell init only; the Catppuccin Powerline preset is symlinked below (edit-in-place).
+  programs.starship.enable = true;
 
   # Per-project language versions (terraform, python, node, ...) via .mise.toml / .tool-versions.
   # Replaces pyenv and tfenv; the zsh hook activates the right version on cd.
   programs.mise = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
     # Global fallbacks when a project doesn't pin a version.
+    # Avoid "latest" here: it makes mise hit GitHub's API on every prompt.
+    # terraform is pinned per-project, so it's intentionally omitted.
     globalConfig.tools = {
-      terraform = "latest";
       node = "24";
       python = "3.12";
     };
@@ -126,10 +187,12 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
   home.file.".config/herdr".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr";
+  home.file.".config/ghostty/config".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/ghostty/config";
+  home.file.".config/starship.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/starship.toml";
   home.file.".config/bat/config".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/bat/config";
-  home.file.".config/fish/config.fish".source =
-    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/fish/config.fish";
   home.file.".config/atuin/config.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/atuin/config.toml";
   home.file.".config/zed/settings.json".source =
