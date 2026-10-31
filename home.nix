@@ -168,11 +168,9 @@ in
   programs.starship.enable = true;
 
   # Per-project language versions (terraform, python, node, ...) via .mise.toml / .tool-versions.
-  # Replaces pyenv and tfenv; the zsh hook activates the right version on cd.
+  # Replaces pyenv and tfenv; the shell hook activates the right version on cd.
   programs.mise = {
     enable = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
     # Global fallbacks when a project doesn't pin a version.
     # Avoid "latest" here: it makes mise hit GitHub's API on every prompt.
     # terraform is pinned per-project, so it's intentionally omitted.

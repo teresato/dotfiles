@@ -13,7 +13,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = "aarch64-darwin"; # use x86_64-darwin for Intel CPU
 
-  # fish as the login shell (zsh stays available as a fallback).
+  # Login shell; other shells configured in home.nix stay available.
   programs.fish.enable = true;
   environment.shells = [ pkgs.fish ];
 

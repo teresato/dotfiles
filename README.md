@@ -8,7 +8,7 @@ nix-darwin + Home Manager configuration for macOS (Apple Silicon).
 |------|------|
 | `flake.nix` | Inputs (nixpkgs 26.05, nix-darwin, home-manager, nix-homebrew) and the `mac` system |
 | `configuration.nix` | System config: Nix settings, macOS defaults, Homebrew (casks/brews) |
-| `home.nix` | Home Manager: packages, zsh, starship, mise, and config symlinks |
+| `home.nix` | Home Manager: packages, shells, starship, mise, and config symlinks |
 | `home/` | Real config files, symlinked into `~` via `mkOutOfStoreSymlink` (edit-in-place) |
 | `rebuild.sh` | Convenience wrapper around the switch command |
 
@@ -48,7 +48,7 @@ Commits and PR titles follow [Conventional Commits](https://www.conventionalcomm
 ## Secrets
 
 Secrets are **not** in this repo. They live in `~/.secrets.env` (mode 600,
-sourced by zsh, blocked by the global gitignore as `*.secrets.env`).
+sourced at shell startup, blocked by the global gitignore as `*.secrets.env`).
 
 ### GitHub tokens — which goes where
 
