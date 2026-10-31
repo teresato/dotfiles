@@ -180,6 +180,12 @@ in
     };
   };
 
+  # colima only provides the daemon, so the docker CLI plugins come from nix.
+  home.file.".docker/cli-plugins/docker-compose".source =
+    "${pkgs.docker-compose}/bin/docker-compose";
+  home.file.".docker/cli-plugins/docker-buildx".source =
+    "${pkgs.docker-buildx}/bin/docker-buildx";
+
   # Edit-in-place: the real file stays in my repo, ~/.config just points at it.
   home.file.".config/nvim".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
