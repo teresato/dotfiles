@@ -17,6 +17,9 @@
   programs.fish.enable = true;
   environment.shells = [ pkgs.fish ];
 
+  # Touch ID for sudo; written to /etc/pam.d/sudo_local, which survives macOS updates.
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   system.primaryUser = user;
   users.users.${user} = {
     home = "/Users/${user}";
