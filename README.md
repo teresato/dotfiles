@@ -10,6 +10,7 @@ nix-darwin + Home Manager configuration for macOS (Apple Silicon).
 | `configuration.nix` | System config: Nix settings, macOS defaults, Homebrew (casks/brews) |
 | `home.nix` | Home Manager: packages, shells, starship, mise, and config symlinks |
 | `home/` | Real config files, symlinked into `~` via `mkOutOfStoreSymlink` (edit-in-place) |
+| `bootstrap.sh` | One-time setup that takes a fresh Mac to a built config |
 | `rebuild.sh` | Convenience wrapper around the switch command |
 
 ## Rebuild
@@ -61,7 +62,16 @@ sourced at shell startup, blocked by the global gitignore as `*.secrets.env`).
 
 ## First-time / new-machine setup
 
-1. Move the installer's nix.conf aside: `sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin`
-2. Bootstrap once with `nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake ~/.dotfiles#mac`
-3. Create `~/.secrets.env` (see above) and set up pinentry/GPG as needed.
-4. Subsequent rebuilds use the command in [Rebuild](#rebuild).
+1. Clone this repo and run `./bootstrap.sh` once from it. The script:
+   - installs Nix if it's missing
+   - symlinks the repo to `~/.dotfiles`
+   - checks the `user` in `flake.nix` against the current user, offering to
+     rewrite it if they differ
+   - moves the installer's `/etc/nix/nix.conf` aside
+   - runs the first `darwin-rebuild switch`
+2. Create `~/.secrets.env` (see above) and set up pinentry/GPG as needed.
+3. Subsequent rebuilds use `./rebuild.sh` or the command in [Rebuild](#rebuild).
+
+If the script reports `nix: command not found`, open a new terminal and re-run
+it. If activation aborts over `/etc/bashrc` or `/etc/zshrc`, add
+`.before-nix-darwin` to the end of those filenames and re-run it.
