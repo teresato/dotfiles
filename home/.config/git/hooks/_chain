@@ -1,0 +1,6 @@
+#!/bin/sh
+# core.hooksPath replaces .git/hooks, so hand off to the repo's own hook if it has one.
+hook="$(git rev-parse --git-common-dir)/hooks/$(basename "$0")"
+if [ -x "$hook" ]; then
+  exec "$hook" "$@"
+fi

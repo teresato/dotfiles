@@ -1,0 +1,33 @@
+#!/bin/sh
+# Checks a commit message file against Conventional Commits 1.0.0.
+# Shared by the commit-msg hook and the PR check in .github/workflows.
+
+msg=$(grep -v '^#' "$1" | sed '/./,$!d')
+[ -n "$msg" ] || exit 0 # empty message: git aborts the commit itself
+
+subject=$(printf '%s\n' "$msg" | sed -n 1p)
+second=$(printf '%s\n' "$msg" | sed -n 2p)
+
+# Messages git generates itself.
+case "$subject" in
+  'Merge '* | 'Revert "'* | 'Reapply "'* | 'fixup! '* | 'squash! '* | 'amend! '*) exit 0 ;;
+esac
+
+types='feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert'
+
+if ! printf '%s\n' "$subject" | grep -Eq "^($types)(\([^() ]+\))?!?: [^ ]"; then
+  cat >&2 <<EOF
+Not a Conventional Commit: $subject
+
+Expected: <type>[(scope)][!]: <description>
+Types:    $(printf '%s' "$types" | tr '|' ' ')
+Example:  feat(nvim): add colorscheme plugin
+Spec:     https://www.conventionalcommits.org/en/v1.0.0/
+EOF
+  exit 1
+fi
+
+if [ -n "$second" ]; then
+  echo "Conventional Commit needs a blank line between the subject and body." >&2
+  exit 1
+fi

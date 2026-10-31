@@ -1,0 +1,5 @@
+# Shared config. ~/.gitconfig stays mutable for identity and `gh auth setup-git`.
+[core]
+	hooksPath = ~/.config/git/hooks
+[commit]
+	template = ~/.config/git/commit-template

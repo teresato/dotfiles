@@ -6,3 +6,6 @@ home/.config/herdr/session.json
 # editor swap files
 *.swp
 *.swo
+
+# managed by Claude, not dotfiles
+home/.claude/skills/synced/

@@ -1,0 +1,10 @@
+
+# <type>[(scope)][!]: <description>
+#
+# [body: what changed and why, after a blank line]
+#
+# [footers, e.g. BREAKING CHANGE: <what breaks>, Refs: #123]
+#
+# Types: feat fix docs style refactor perf test build ci chore revert
+# feat = minor bump, fix = patch bump, ! or BREAKING CHANGE = major bump
+# https://www.conventionalcommits.org/en/v1.0.0/

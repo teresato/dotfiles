@@ -201,6 +201,12 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/gh/config.yml";
   home.file.".config/git/ignore".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/git/ignore";
+  home.file.".config/git/config".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/git/config";
+  home.file.".config/git/commit-template".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/git/commit-template";
+  home.file.".config/git/hooks".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/git/hooks";
   home.file.".claude/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.claude/settings.json";
   home.file.".claude/skills".source =

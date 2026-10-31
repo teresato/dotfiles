@@ -32,6 +32,19 @@ block the plain `darwin-rebuild` path.
   gets uninstalled on rebuild, and a removed cask's app data goes with it. Add new
   apps to the config, not just `brew install`.
 
+## Commits and PRs
+
+Commits and PR titles follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+- **All repos:** `home/.config/git/hooks/commit-msg` rejects non-conforming
+  messages through a global `core.hooksPath`. Every hook there also runs the
+  repo's own `.git/hooks` equivalent. Repos that set their own `core.hooksPath`
+  (such as husky) skip the global hook.
+- **Agents:** `home/AGENTS.md` and the `conventional-commits` Claude Code skill
+  in `home/.claude/skills` carry the rules.
+- **This repo:** `.github/workflows/conventional-commits.yml` checks PR titles
+  and commits. Other repos need their own copy, plus `_check-message`.
+
 ## Secrets
 
 Secrets are **not** in this repo. They live in `~/.secrets.env` (mode 600,

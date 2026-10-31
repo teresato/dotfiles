@@ -1,0 +1,4 @@
+#!/bin/sh
+hooks=$(dirname "$0")
+"$hooks/_check-message" "$1" || exit 1
+. "$hooks/_chain"
