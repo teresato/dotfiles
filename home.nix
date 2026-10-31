@@ -112,6 +112,8 @@ in
       gst = "git status";
       tf = "terraform";
       k = "kubectl";
+      npm = "pnpm";
+      npx = "pnpm dlx";
       cc = "claude --dangerously-skip-permissions";
       co = "codex --full-auto";
     };
@@ -132,6 +134,8 @@ in
       gst = "git status";
       tf = "terraform";
       k = "kubectl";
+      npm = "pnpm";
+      npx = "pnpm dlx";
     };
     # Kept as aliases: not command-word shortcuts, or they wrap a function.
     shellAliases = {
