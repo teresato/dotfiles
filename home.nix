@@ -9,7 +9,7 @@ in
   home.homeDirectory = "/Users/${user}";
   home.stateVersion = "24.11";
   home.packages = with pkgs; [
-    # cli i use constantly
+    # cli tools
     ripgrep   # fast search
     fd        # fast find
     fzf       # fuzzy finder
@@ -17,8 +17,7 @@ in
     lazygit
     neovim
     bat       # cat with syntax highlighting
-    lsd       # ls with icons
-    glow       # markdown in the terminal
+    glow      # markdown in the terminal
     atuin     # shell history
     gh        # github cli
     fish
@@ -26,22 +25,14 @@ in
     gnupg
     pinentry_mac
     git
-    tmux
-    zoxide    # `z` -- jump to frecent dirs
-    tree
+    zoxide    # `z` -- jump to recent dirs
     duf       # friendlier df
-    cheat     # cheatsheets for commands
     curl      # newer than the macOS build
-    curlie    # curl with httpie-style output
-    wget
     findutils # GNU find/xargs, not the BSD ones
-    vim       # fallback for when the neovim config is broken
-    chezmoi
     # languages & build (versions still pinned per-project by mise)
     go
     uv        # python package/venv manager
     pnpm
-    pipenv
     # cloud & infra
     awscli2
     kubectl
@@ -50,8 +41,6 @@ in
     docker-client    # CLI only; colima provides the daemon
     colima
     terraform-docs
-    steampipe
-    gws       # googleworkspace-cli
     ollama
     # media & ocr
     ffmpeg
@@ -114,6 +103,7 @@ in
       k = "kubectl";
       npm = "pnpm";
       npx = "pnpm dlx";
+      tree = "eza --tree";
       cc = "claude --dangerously-skip-permissions";
       co = "codex --full-auto";
     };
@@ -136,6 +126,7 @@ in
       k = "kubectl";
       npm = "pnpm";
       npx = "pnpm dlx";
+      tree = "eza --tree";
     };
     # Kept as aliases: not command-word shortcuts, or they wrap a function.
     shellAliases = {
@@ -168,6 +159,9 @@ in
     '';
   };
 
+  # Also aliases ls to eza in every shell.
+  programs.eza.enable = true;
+
   # Shell init only; the Catppuccin Powerline preset is symlinked below (edit-in-place).
   programs.starship.enable = true;
 
@@ -183,6 +177,10 @@ in
       python = "3.12";
     };
   };
+
+  # vi and vim both open neovim.
+  home.file.".local/bin/vi".source = "${pkgs.neovim}/bin/nvim";
+  home.file.".local/bin/vim".source = "${pkgs.neovim}/bin/nvim";
 
   # colima only provides the daemon, so the docker CLI plugins come from nix.
   home.file.".docker/cli-plugins/docker-compose".source =
