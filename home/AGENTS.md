@@ -5,3 +5,7 @@ Follow Conventional Commits 1.0.0 (https://www.conventionalcommits.org/en/v1.0.0
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 
 Never use `--no-verify` to get past the `commit-msg` hook. Fix the message instead.
+
+# PR Rules
+- Never use the em dash "—". Use plain dash "-" instead
+- When writing commit messages, NEVER auto-add your agent name as co-author
