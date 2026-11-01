@@ -3,3 +3,16 @@ command = /run/current-system/sw/bin/fish
 
 # Nerd Font so Starship's powerline glyphs render.
 font-family = "Hack Nerd Font"
+font-size = 15
+
+theme = Catppuccin Frappe
+
+background-opacity = 0.8
+background-blur = 50
+
+# Hides the tab bar too, and the window can't be dragged from the top.
+macos-titlebar-style = hidden
+
+# Dim unfocused windows and splits so the focused one is obvious at a glance.
+custom-shader = shaders/dim-unfocused.glsl
+unfocused-split-opacity = 0.62

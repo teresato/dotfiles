@@ -195,6 +195,8 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr";
   home.file.".config/ghostty/config".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/ghostty/config";
+  home.file.".config/ghostty/shaders".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/ghostty/shaders";
   home.file.".config/starship.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/starship.toml";
   home.file.".config/bat/config".source =
